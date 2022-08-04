@@ -1,0 +1,10 @@
+.titulo {
+    text-align: center;
+    color: gray;
+}
+
+.graficas {
+    display: block;
+    margin: auto;
+    width: 40%;
+}
