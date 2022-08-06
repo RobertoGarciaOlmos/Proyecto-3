@@ -6,8 +6,9 @@ const monedaMxn = ["mxn"];
 const monedaUyu = ["uyu"];
 const ctx = document.getElementById('myChart');
 let valores = [];
+
 const datasets = [{
-    label: 'Currency vs USD',
+    label: 'US DOLLAR EXCHANGE RATES TABLE',
     backgroundColor: [
         'rgba(54, 162, 235, 0.2)',
         'rgba(255, 99, 132, 0.2)',
@@ -26,7 +27,6 @@ const datasets = [{
     ],
     borderWidth: 1
 }]
-
 
 
 
@@ -55,8 +55,6 @@ const getMonedaEur = async() => {
 }
 
 
-
-
 // USD-CAD
 
 const getMonedaCad = async() => {
@@ -66,9 +64,6 @@ const getMonedaCad = async() => {
     datasets[0].data = valores
     myChart.update();
 }
-
-
-
 
 // USD-BRL
 
@@ -80,11 +75,33 @@ const getMonedaBrl = async() => {
     myChart.update();
 }
 
+
+// USD-MXN
+
+const getMonedaMxn = async() => {
+    valores = [];
+    const { data: { mxn }, } = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/${monedaMxn[0]}.min.json`);
+    valores.push(mxn);
+    datasets[0].data = valores
+    myChart.update();
+}
+
+// USD-UYU
+
+const getMonedaUyu = async() => {
+    valores = [];
+    const { data: { uyu }, } = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/${monedaUyu[0]}.min.json`);
+    valores.push(uyu);
+    datasets[0].data = valores
+    myChart.update();
+}
+
 getMonedaUsa()
 getMonedaEur()
 getMonedaCad()
 getMonedaBrl()
-
+getMonedaMxn()
+getMonedaUyu()
 
 // GRAFICA
 
