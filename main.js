@@ -1,9 +1,6 @@
-const monedaUsd = ["usd"];
-const monedaEur = ["eur"];
-const monedaCad = ["cad"];
-const monedaBrl = ["brl"];
-const monedaMxn = ["mxn"];
-const monedaUyu = ["uyu"];
+import { usdPeticion, eurPeticion, cadPeticion, brlPeticion, mxnPeticion, uyuPeticion, linkSelect1, linkeur, linkcad, linkbrl, linkmxn, linkuyu } from "./peticiones.js";
+
+
 const ctx = document.getElementById('myChart');
 let valores = [];
 
@@ -32,11 +29,12 @@ const datasets = [{
 
 // DATOS GRAFICAS
 
+
 // USD-USD
 
 const getMonedaUsa = async() => {
     valores = [];
-    const { data: { usd }, } = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/${monedaUsd[0]}.min.json`);
+    const { data: { usd }, } = await usdPeticion();
     valores.push(usd);
     datasets[0].data = valores
     myChart.update();
@@ -48,7 +46,7 @@ const getMonedaUsa = async() => {
 
 const getMonedaEur = async() => {
     valores = [];
-    const { data: { eur }, } = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/${monedaEur[0]}.min.json`);
+    const { data: { eur }, } = await eurPeticion();
     valores.push(eur);
     datasets[0].data = valores
     myChart.update();
@@ -59,7 +57,7 @@ const getMonedaEur = async() => {
 
 const getMonedaCad = async() => {
     valores = [];
-    const { data: { cad }, } = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/${monedaCad[0]}.min.json`);
+    const { data: { cad }, } = await cadPeticion();
     valores.push(cad);
     datasets[0].data = valores
     myChart.update();
@@ -69,7 +67,7 @@ const getMonedaCad = async() => {
 
 const getMonedaBrl = async() => {
     valores = [];
-    const { data: { brl }, } = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/${monedaBrl[0]}.min.json`);
+    const { data: { brl }, } = await brlPeticion();
     valores.push(brl);
     datasets[0].data = valores
     myChart.update();
@@ -80,7 +78,7 @@ const getMonedaBrl = async() => {
 
 const getMonedaMxn = async() => {
     valores = [];
-    const { data: { mxn }, } = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/${monedaMxn[0]}.min.json`);
+    const { data: { mxn }, } = await mxnPeticion();
     valores.push(mxn);
     datasets[0].data = valores
     myChart.update();
@@ -90,7 +88,7 @@ const getMonedaMxn = async() => {
 
 const getMonedaUyu = async() => {
     valores = [];
-    const { data: { uyu }, } = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/${monedaUyu[0]}.min.json`);
+    const { data: { uyu }, } = await uyuPeticion();
     valores.push(uyu);
     datasets[0].data = valores
     myChart.update();
@@ -115,121 +113,38 @@ const myChart = new Chart(ctx, {
 });
 
 
-
-
 // TABLA VALORES COMPARACION APIS
 
 
 // USD-EURO
-const fetchUSDEUR = async(links, obj) => {
-    let response1;
-    for (let link of links) {
-        try {
-            response1 = await fetch(link, obj)
-            if (response1.ok)
-                return response1
-        } catch (e) {}
-    }
-    return response1
-}
-
-let url1 = [
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/eur.min.json",
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/eur.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/eur.min.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/eur.json"
-]
-
+const fetchUSDEUR = linkSelect1
+let url1 = linkeur
 fetchUSDEUR(url1).then(respuesta => respuesta.json()).then((data1) => { document.getElementById("EURO").innerHTML = (`1 USD vale ${+(data1.eur).toFixed(2)} EUR`) })
 
 
 // USD-CANADA
-const fetchUSDcad = async(links, obj) => {
-    let response;
-    for (let link of links) {
-        try {
-            response = await fetch(link, obj)
-            if (response.ok)
-                return response
-        } catch (e) {}
-    }
-    return response
-}
-
-let url2 = [
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/cad.min.json",
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/cad.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/cad.min.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/cad.json"
-]
-
+const fetchUSDcad = linkSelect1
+let url2 = linkcad
 fetchUSDEUR(url2).then(respuesta => respuesta.json()).then((data2) => { document.getElementById("CAD").innerHTML = (`1 USD vale ${ +(data2.cad).toFixed(2)} CAD`) })
 
 // USD-Brazil
 
-const fetchUSDbrl = async(links, obj) => {
-    let response;
-    for (let link of links) {
-        try {
-            response = await fetch(link, obj)
-            if (response.ok)
-                return response
-        } catch (e) {}
-    }
-    return response
-}
-
-let url3 = [
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/brl.min.json",
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/brl.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/brl.min.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/brl.json"
-]
-
+const fetchUSDbrl = linkSelect1
+let url3 = linkbrl
 fetchUSDbrl(url3).then(respuesta => respuesta.json()).then((data3) => { document.getElementById("BRL").innerHTML = (`1 USD vale ${ +(data3.brl).toFixed(2)} BRL`) })
 
 // USD-MEXICO
 
-const fetchUSDmxn = async(links, obj) => {
-    let response;
-    for (let link of links) {
-        try {
-            response = await fetch(link, obj)
-            if (response.ok)
-                return response
-        } catch (e) {}
-    }
-    return response
-}
-
-let url4 = [
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/mxn.min.json",
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/mxn.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/mxn.min.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/mxn.json"
-]
-
-
+const fetchUSDmxn = linkSelect1
+let url4 = linkmxn
 fetchUSDmxn(url4).then(res => res.json()).then(data4 => { document.getElementById("MXN").innerHTML = (`1 USD vale ${+(data4.mxn).toFixed(2)} MXN`) })
 
 // USD-Uruguayan
 
-const fetchUSDuyu = async(links, obj) => {
-    let response;
-    for (let link of links) {
-        try {
-            response = await fetch(link, obj)
-            if (response.ok)
-                return response
-        } catch (e) {}
-    }
-    return response
-}
-let url5 = [
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/uyu.min.json",
-    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/uyu.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/uyu.min.json",
-    "https://raw.githubusercontent.com/fawazahmed0/currency-api/1/latest/currencies/usd/uyu.json"
-]
-
+const fetchUSDuyu = linkSelect1
+let url5 = linkuyu
 fetchUSDuyu(url5).then(res => res.json()).then(data5 => { document.getElementById("UYU").innerHTML = (`1 USD vale ${+(data5.uyu).toFixed(2)} UYU`) })
+
+
+const date = Date()
+document.getElementById("fecha").innerHTML = date

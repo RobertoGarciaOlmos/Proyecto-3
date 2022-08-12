@@ -3,6 +3,12 @@
     color: gray;
 }
 
+.titulo2 {
+    text-align: center;
+    color: gray;
+    font-size: small;
+}
+
 .graficas {
     display: block;
     margin: auto;
